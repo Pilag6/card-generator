@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-blue-900 min-h-screen flex items-center justify-center;
+    accent-color: #1e3a8a ;
+}
+
+.card {
+    @apply flex justify-center items-center bg-cover bg-center transition-all duration-300 ease-in-out shadow-lg mt-12;
+}
+
+.card-title {
+    @apply text-2xl font-semibold text-white mb-2;
+}
+
+.portrait {
+    @apply w-96 h-[32rem];
+}
+
+.square {
+    @apply w-96 h-96;
+}
+
+.landscape {
+    @apply w-[32rem] h-96;
+}
+
+.no-border {
+    @apply border-0;
+}
+
+.full-border {
+    @apply border-2;
+}
+
+.left-border {
+    @apply border-l-2;
+}
+
+.right-border {
+    @apply border-r-2;
+}
+
+.top-border {
+    @apply border-t-2;
+}
+
+.bottom-border {
+    @apply border-b-2;
+}
+
+.text-block {
+    @apply flex flex-col items-center w-full p-2;
+}
+
+.text-block.left {
+    @apply text-left;
+}
+
+.text-block.center {
+    @apply text-center;
+}
+
+.text-block.right {
+    @apply text-right;
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinner {
+    -moz-appearance: textfield;
+}
