@@ -20,7 +20,7 @@ const TextControl = ({ title, paragraph, textColor, bgTextColor, textPosition, t
         <span className="text-sm text-gray-500 block mt-2">{title.length}/40</span>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 ">
         <label className="block mb-2 text-sm font-medium text-gray-700">
           <FaParagraph className="inline mr-2" /> Paragraph
         </label>

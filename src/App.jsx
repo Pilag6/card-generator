@@ -12,7 +12,7 @@ const App = () => {
     borderRadius: 0,
     title: "Play the game",
     paragraph: "All you have to do is fall in love.",
-    textColor: "#cbd5e1",
+    textColor: "#dae0e7",
     bgTextColor: "none",
     padding: 4,
     bgColor: "#1e3a8a",

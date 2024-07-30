@@ -72,10 +72,10 @@ const Preview = ({ cardConfig, updateCardConfig }) => {
                     className={`text-block ${cardConfig.textAlign}`}
                     style={textBlockStyle}
                 >
-                    <h2 className="card-title m-0 p-1" style={textStyle}>
+                    <h2 className="card-title m-0 px-3 py-1" style={textStyle}>
                         {cardConfig.title}
                     </h2>
-                    <p className="card-paragraph m-0 p-1" style={textStyle}>
+                    <p className="card-paragraph m-0 px-3 py-1" style={textStyle}>
                         {cardConfig.paragraph}
                     </p>
                 </div>
@@ -97,11 +97,13 @@ const Preview = ({ cardConfig, updateCardConfig }) => {
             </div>
 
             <div className='mt-auto'>
-                <ColorContrastChecker 
-                    textColor={cardConfig.textColor} 
-                    backgroundColor={cardConfig.bgColor}
-                />
-    
+                {cardConfig.bgImage ? null : (
+                    <ColorContrastChecker 
+                        textColor={cardConfig.textColor} 
+                        backgroundColor={cardConfig.bgColor}
+                    />
+                )}
+
                 <BackgroundControl
                     bgColor={cardConfig.bgColor}
                     bgImage={cardConfig.bgImage}
