@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
-
+import { useRef } from 'react';
+import html2canvas from 'html2canvas';
 import BackgroundControl from "@components/molecules/BackgroundControl.jsx";
+import ColorContrastChecker from './ColorContrastChecker';
 
 const Preview = ({ cardConfig, updateCardConfig }) => {
+    const cardRef = useRef(null);
+
     const cardStyle = {
         backgroundColor: cardConfig.bgColor,
         backgroundImage: cardConfig.bgImage
@@ -38,9 +42,29 @@ const Preview = ({ cardConfig, updateCardConfig }) => {
         height: "100%"
     };
 
+    const sanitizeFilename = (name) => {
+        return name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    };
+
+    const exportCard = (format) => {
+        html2canvas(cardRef.current).then(canvas => {
+            let link = document.createElement('a');
+            const sanitizedTitle = sanitizeFilename(cardConfig.title);
+            if (format === 'png') {
+                link.href = canvas.toDataURL('image/png');
+                link.download = `${sanitizedTitle}.png`;
+            } else {
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.download = `${sanitizedTitle}.jpg`;
+            }
+            link.click();
+        });
+    };
+
     return (
-        <div className="w-[800px] bg-slate-300 flex justify-center flex-col items-center ">
+        <div className="w-[800px] bg-slate-300 flex justify-center flex-col items-center">
             <div
+                ref={cardRef}
                 className={`card ${cardConfig.orientation} ${cardConfig.border}`}
                 style={cardStyle}
             >
@@ -56,6 +80,26 @@ const Preview = ({ cardConfig, updateCardConfig }) => {
                     </p>
                 </div>
             </div>
+
+            <div className="mt-4 flex gap-2">
+                <button 
+                    onClick={() => exportCard('png')}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                    Export as PNG
+                </button>
+                <button 
+                    onClick={() => exportCard('jpg')}
+                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
+                    Export as JPG
+                </button>
+            </div>
+
+            <ColorContrastChecker 
+                textColor={cardConfig.textColor} 
+                backgroundColor={cardConfig.bgColor}
+            />
 
             <BackgroundControl
                 bgColor={cardConfig.bgColor}
