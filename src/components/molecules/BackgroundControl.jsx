@@ -14,7 +14,7 @@ const BackgroundControl = ({ bgColor, bgImage, updateCardConfig }) => {
   };
 
   return (
-    <div className="p-8 mt-auto bg-gray-100 border-t border-gray-300">
+    <div className="px-8 py-4 bg-gray-100 border-t border-gray-300">
       <h3 className="text-lg font-semibold mb-2">Background</h3>
 
       <div className='flex gap-2 justify-between items-center'>

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardGenerator from './components/organisms/CardGenerator';
 import Preview from './components/organisms/Preview';
+import HistoryManager from './HistoryManager';
 
 const App = () => {
   const [cardConfig, setCardConfig] = useState({
@@ -20,14 +21,47 @@ const App = () => {
     textAlign: "left"
   });
 
+  const [historyManager, setHistoryManager] = useState(null);
+
+  useEffect(() => {
+    setHistoryManager(new HistoryManager(cardConfig));
+  }, []);
+
   const updateCardConfig = (newConfig) => {
-    setCardConfig({ ...cardConfig, ...newConfig });
+    setCardConfig(prevConfig => {
+      const updatedConfig = { ...prevConfig, ...newConfig };
+      historyManager.push(updatedConfig);
+      return updatedConfig;
+    });
+  };
+
+  const handleUndo = () => {
+    const previousState = historyManager.undo();
+    if (previousState) {
+      setCardConfig(previousState);
+    }
+  };
+
+  const handleRedo = () => {
+    const nextState = historyManager.redo();
+    if (nextState) {
+      setCardConfig(nextState);
+    }
   };
 
   return (
-    <div className="flex flex-wrap w-full bg-white shadow-lg ">
-      <CardGenerator cardConfig={cardConfig} updateCardConfig={updateCardConfig} />
-      <Preview cardConfig={cardConfig} updateCardConfig={updateCardConfig} />
+    <div className="flex flex-col items-center bg-white shadow-lg">
+      <div className="flex flex-wrap w-full">
+        <CardGenerator 
+          cardConfig={cardConfig} 
+          updateCardConfig={updateCardConfig} 
+          handleUndo={handleUndo}
+          handleRedo={handleRedo}
+          canUndo={historyManager && historyManager.canUndo()}
+          canRedo={historyManager && historyManager.canRedo()}
+        />
+        <Preview cardConfig={cardConfig} updateCardConfig={updateCardConfig} />
+      </div>
     </div>
   );
 };

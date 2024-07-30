@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 
 const ColorContrastChecker = ({ textColor, backgroundColor }) => {
     const [contrastRatio, setContrastRatio] = useState(0);
-    const [isPassingAA, setIsPassingAA] = useState(false);
-    const [isPassingAAA, setIsPassingAAA] = useState(false);
+    const [contrastRating, setContrastRating] = useState('');
 
     const calculateLuminance = (color) => {
         const rgb = color.substring(1);
@@ -27,22 +26,44 @@ const ColorContrastChecker = ({ textColor, backgroundColor }) => {
         return ratio.toFixed(2);
     };
 
+    const getRating = (ratio) => {
+        if (ratio < 2) return 'Very Poor';
+        if (ratio < 3) return 'Poor';
+        if (ratio < 4.5) return 'Good';
+        if (ratio < 7) return 'Very Good';
+        return 'Excellent';
+    };
+
+    const getRatingColor = (rating) => {
+        switch(rating) {
+            case 'Very Poor': return 'text-red-600';
+            case 'Poor': return 'text-orange-500';
+            case 'Good': return 'text-yellow-500';
+            case 'Very Good': return 'text-green-500';
+            case 'Excellent': return 'text-blue-600';
+            default: return '';
+        }
+    };
+
     useEffect(() => {
         const ratio = calculateContrastRatio(textColor, backgroundColor);
         setContrastRatio(ratio);
-        setIsPassingAA(ratio >= 4.5);
-        setIsPassingAAA(ratio >= 7);
+        setContrastRating(getRating(ratio));
     }, [textColor, backgroundColor]);
 
     return (
-        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+        <div className="mt-4 px-8 py-4 bg-gray-100">
             <h3 className="text-lg font-semibold mb-2">Color Contrast</h3>
-            <p>Contrast Ratio: {contrastRatio}:1</p>
-            <p className={isPassingAA ? "text-green-600" : "text-red-600"}>
-                {isPassingAA ? "Passes" : "Fails"} WCAG AA
-            </p>
-            <p className={isPassingAAA ? "text-green-600" : "text-red-600"}>
-                {isPassingAAA ? "Passes" : "Fails"} WCAG AAA
+            <div className='flex items-end gap-2'>
+                <p className=''>Contrast Ratio: <span className='font-bold text-xl mb-2'>{contrastRatio}:1</span></p>
+                |
+                <p className={`font-bold ${getRatingColor(contrastRating)}`}>
+                    {contrastRating}
+                </p>
+            </div>
+            <p className="text-sm mt-2">
+                (WCAG AA: <span className='font-bold'>{contrastRatio >= 4.5 ? 'Pass' : 'Fail'}</span>, 
+                WCAG AAA: <span className='font-bold'>{contrastRatio >= 7 ? 'Pass' : 'Fail'}</span>)
             </p>
         </div>
     );

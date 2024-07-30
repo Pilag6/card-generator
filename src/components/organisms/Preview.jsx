@@ -96,16 +96,18 @@ const Preview = ({ cardConfig, updateCardConfig }) => {
                 </button>
             </div>
 
-            <ColorContrastChecker 
-                textColor={cardConfig.textColor} 
-                backgroundColor={cardConfig.bgColor}
-            />
-
-            <BackgroundControl
-                bgColor={cardConfig.bgColor}
-                bgImage={cardConfig.bgImage}
-                updateCardConfig={updateCardConfig}
-            />
+            <div className='mt-auto'>
+                <ColorContrastChecker 
+                    textColor={cardConfig.textColor} 
+                    backgroundColor={cardConfig.bgColor}
+                />
+    
+                <BackgroundControl
+                    bgColor={cardConfig.bgColor}
+                    bgImage={cardConfig.bgImage}
+                    updateCardConfig={updateCardConfig}
+                />
+            </div>
         </div>
     );
 };
