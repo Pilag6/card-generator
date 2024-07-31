@@ -1,3 +1,4 @@
 # CARD GENERATOR by Pila
 
-![image](https://github.com/user-attachments/assets/f79b0c71-dd2d-4933-91b4-e009494a4deb)
+![image](https://github.com/user-attachments/assets/b97e2312-cf70-4ada-9e99-1bf831a94a17)
+
