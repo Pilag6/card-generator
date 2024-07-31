@@ -8,8 +8,9 @@ import TextControl from '../molecules/TextControl';
 const CardGenerator = ({ cardConfig, updateCardConfig, handleUndo, handleRedo, canUndo, canRedo }) => {
   return (
     <div className="w-96 bg-gray-100 border-r border-gray-300">
-      <div className="flex justify-between items-center bg-[#3e63cc] text-white font-bold text-2xl p-5">
-        <h2>Card Generator</h2>
+      <div className="flex justify-between items-center bg-[#3e63cc] p-5">
+        <h2 className="font-bold text-white text-2xl">Card Generator</h2>
+        
         <div className="flex space-x-2">
           <button
             onClick={handleUndo}
